@@ -11,5 +11,7 @@ py.stdout.on('end', function(){
   console.log('s=',dataString);
 });
 
-py.stdin.write ('start');
-py.stdin.end ();
+setTimeout (function (){
+	py.stdin.write ('start');
+	py.stdin.end ();
+}, 5000);

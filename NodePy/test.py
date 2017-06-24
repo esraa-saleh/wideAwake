@@ -1,2 +1,1 @@
-input ();
-print ("olf");
+print ("What does the fox say?");
