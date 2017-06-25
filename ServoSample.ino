@@ -1,9 +1,8 @@
 #include <Servo.h>
 
-Servo myservo;  // create servo object to control a servo
-// twelve servo objects can be created on most boards
+Servo servo;  
 
-int pos = 0;    // variable to store the servo position
+int pos = 0;    
 int ledPin = 12; 
 
 int running = 0;
@@ -11,7 +10,7 @@ int light =LOW;
 int buzzerPin= 8;
 void setup() {
   Serial.begin(9600);
-  myservo.attach(13);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(13);  
 
   pinMode (ledPin, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
@@ -35,7 +34,7 @@ void serialEvent()
 {
    while(Serial.available()) 
    {
-      playTone();
+      startBuzz();
       Serial.write(2);
 //      char start = Serial.read();
 //      //Serial.write(start);
@@ -54,23 +53,23 @@ void serialEvent()
           toggleLight();
           }
          
-        // in steps of 1 degree
-        myservo.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(15);                       // waits 15ms for the servo to reach the position
+        
+        servo.write(pos);              
+        delay(10);                    
          }
          
-         playTone();
-       for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+         startBuzz();
+       for (pos = 180; pos >= 0; pos -= 1) { 
         if(pos%45==0){
           
           toggleLight();
           }
-        myservo.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(15);                       // waits 15ms for the servo to reach the position
+        servo.write(pos);              
+        delay(10);                       
         }
        Serial.write(2);
        running = 0;
-        playTone();
+        startBuzz();
       light = LOW;
       digitalWrite(ledPin, light);
         
@@ -82,13 +81,13 @@ void toggleLight(){
   digitalWrite(ledPin, light);
   light = (light==LOW?HIGH:LOW);
   }
-void playTone () {
- for (long i = 0; i < 2048; i++ ) 
-   // 1 / 2048Hz = 488uS, or 244uS high and 244uS low to create 50% duty cycle
+void startBuzz () {
+ for (long i = 0; i < 3000; i++ ) 
+  
  {
    digitalWrite(buzzerPin, HIGH);
-   delayMicroseconds(244);
+   delayMicroseconds(250);
    digitalWrite(buzzerPin, LOW);
-   delayMicroseconds(244);
+   delayMicroseconds(250);
  }
 }
