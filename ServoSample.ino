@@ -10,7 +10,7 @@ int light =LOW;
 int buzzerPin= 8;
 void setup() {
   Serial.begin(9600);
-  myservo.attach(13);  
+  servo.attach(13);  
 
   pinMode (ledPin, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
